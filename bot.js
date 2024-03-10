@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 const { Bot } = require("grammy");
 // const { Menu } = require("@grammyjs/menu");
 
+dotenv.config();
 
 const TELEGRAM_BOT_API_TOKEN = process.env.TELEGRAM_BOT_API_TOKEN;
 if (!TELEGRAM_BOT_API_TOKEN) {
