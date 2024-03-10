@@ -1,7 +1,15 @@
+const dotenv = require("dotenv");
 const { Bot } = require("grammy");
 // const { Menu } = require("@grammyjs/menu");
 
-const bot = new Bot("");
+
+const TELEGRAM_BOT_API_TOKEN = process.env.TELEGRAM_BOT_API_TOKEN;
+if (!TELEGRAM_BOT_API_TOKEN) {
+    console.error("TELEGRAM_BOT_API_TOKEN is required");
+    process.exit(1);
+}
+
+const bot = new Bot(TELEGRAM_BOT_API_TOKEN);
 
 // Handle commands.
 bot.command("start", (ctx) => ctx.reply("Welcome! Up and running."));
