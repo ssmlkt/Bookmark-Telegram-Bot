@@ -1,6 +1,14 @@
 {
+  "scripts": {
+    "start": "node dist/typescript-bot.js",
+    "build": "npx tsc"
+  },
   "dependencies": {
     "dotenv": "^16.4.5",
     "grammy": "^1.21.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "typescript": "^5.4.2"
   }
 }
