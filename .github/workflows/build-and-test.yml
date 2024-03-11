@@ -1,0 +1,23 @@
+name: Bot Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    paths:
+      - "**"
+    branches:
+      - "**"
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - run: npm install
+      - run: npm run build 
