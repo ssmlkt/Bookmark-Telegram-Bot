@@ -2,9 +2,8 @@
 A telegram bot to organize and save useful links, mainly for twitter bookmark
 
 # Requirement
-- Node.js "https://nodejs.org/en/download"
-- grammY "https://grammy.dev"
-- @BotFather "https://telegram.me/BotFather"
+- Node.js: "https://nodejs.org/en/download"
+- Telegram API KEY: "Obtain your API key by creating a new bot using @BotFather on Telegram (https://telegram.me/BotFather)"
 
 # How to use
 1. Clone this project.
