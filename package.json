@@ -1,7 +1,8 @@
 {
   "scripts": {
     "start": "node dist/typescript-bot.js",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "format": "prettier --write src/typescript-bot.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
@@ -9,6 +10,7 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
+    "prettier": "^3.2.5",
     "typescript": "^5.4.2"
   }
 }
