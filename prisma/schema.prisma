@@ -1,0 +1,20 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id     Int     @id
+    create Boolean
+}
+
+model Post {
+    id      Int     @id @default(autoincrement())
+    user_id Int
+    chat    String
+    todo    Boolean
+}
