@@ -56,7 +56,7 @@ bot.command("create", async (ctx) => {
     }
   }
   ctx.reply("type the todo name, type /cancel to cancel");
-  action = "gatau";
+  action = "create";
 });
 //cancel
 bot.command("cancel", async (ctx) => {
@@ -65,7 +65,7 @@ bot.command("cancel", async (ctx) => {
   if (fetchUser) {
     const update = await updateAction(false, ctx.update.message?.from.id);
     console.log(update);
-    ctx.reply("ahh cancel", {
+    ctx.reply("okay nevermind", {
       reply_parameters: { message_id: ctx.msg.message_id },
     });
   } else {
@@ -86,20 +86,19 @@ bot.command("updateTodos", async (ctx) => {
     });
     if (posts.length > 0) {
       ctx.reply(
-        posts
-          .map(
-            (post, index) =>
-              `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
-          )
-          .join("\n")
+        "here's the todos\n" +
+          posts
+            .map(
+              (post, index) =>
+                `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
+            )
+            .join("\n") +
+          "\ntype the id you want to update. type /cancel to cancel."
       );
-      ctx.reply("type the id you want to update. type /cancel to cancel.");
       action = "update";
     } else {
       ctx.reply("no todo");
     }
-  } else {
-    ctx.reply("type the todo name, type /cancel to cancel");
   }
 });
 // deleteTodos
@@ -114,14 +113,15 @@ bot.command("deleteTodos", async (ctx) => {
     });
     if (posts.length > 0) {
       ctx.reply(
-        posts
-          .map(
-            (post, index) =>
-              `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
-          )
-          .join("\n")
+        "here's the todos\n" +
+          posts
+            .map(
+              (post, index) =>
+                `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
+            )
+            .join("\n") +
+          "\ntype the id you want to delete. type /cancel to cancel."
       );
-      ctx.reply("type the id you want to delete. type /cancel to cancel.");
       action = "delete";
     } else {
       ctx.reply("no todo");
@@ -141,12 +141,13 @@ bot.command("todos", async (ctx) => {
     });
     if (posts.length > 0) {
       ctx.reply(
-        posts
-          .map(
-            (post, index) =>
-              `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
-          )
-          .join("\n")
+        "here's the todos\n" +
+          posts
+            .map(
+              (post, index) =>
+                `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
+            )
+            .join("\n")
       );
     } else {
       ctx.reply("no todo");
@@ -188,14 +189,15 @@ bot.on("message", async (ctx) => {
       },
     });
     ctx.reply(
-      newPosts
-        .map(
-          (post, index) =>
-            `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
-        )
-        .join("\n")
+      "here's the todos\n" +
+        newPosts
+          .map(
+            (post, index) =>
+              `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
+          )
+          .join("\n")
     );
-    // }
+    action = "gatau";
   } else if (action == "delete") {
     const posts = await prismaClient.post.findMany({
       where: {
@@ -217,17 +219,19 @@ bot.on("message", async (ctx) => {
     });
     if (newPosts.length > 0) {
       ctx.reply(
-        newPosts
-          .map(
-            (post, index) =>
-              `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
-          )
-          .join("\n")
+        "here's the todos\n" +
+          newPosts
+            .map(
+              (post, index) =>
+                `${index + 1}. ${post.chat} ${post.todo ? "✅" : "❌"}`
+            )
+            .join("\n")
       );
     } else {
       ctx.reply("empty");
     }
-  } else if (fetchUser?.create) {
+    action = "gatau";
+  } else if (action == "create") {
     await prismaClient.post.create({
       data: {
         user_id: ctx.update.message?.from.id,
@@ -238,8 +242,9 @@ bot.on("message", async (ctx) => {
     ctx.reply(`todo saved`, {
       reply_parameters: { message_id: ctx.msg.message_id },
     });
+    action = "gatau";
   } else {
-    ctx.reply("type the todo name, type /cancel to cancelx");
+    ctx.reply("/create /todos /updateTodos /deleteTodos /cancel");
   }
 });
 
